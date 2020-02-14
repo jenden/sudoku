@@ -1,0 +1,15 @@
+
+# python
+__pycache__
+
+
+# environment
+Pipfile.lock
+
+
+# pytest
+.pytest_cache
+
+
+# IDE
+.vscode
