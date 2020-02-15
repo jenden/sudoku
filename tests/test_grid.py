@@ -42,7 +42,7 @@ def test_get_y_slice(valid_grid):
     assert actual == expected
 
 
-def test_get_bad_slices(valid_grid):
+def test_get_bad_indices(valid_grid):
 
     with pytest.raises(IndexError):
         valid_grid[1, 2, 3]
@@ -63,13 +63,13 @@ def test_set_xy(valid_grid):
     assert valid_grid[1, 1] == 9
 
 
-def test_set_bad_slice(valid_grid):
+def test_set_bad_indices(valid_grid):
 
     with pytest.raises(IndexError):
         valid_grid[1] = 0
 
     with pytest.raises(IndexError):
-        valid_grid[1::2] = 0 
+        valid_grid[1::2] = 0
 
     with pytest.raises(IndexError):
         valid_grid[10, 10] = 0
@@ -85,8 +85,20 @@ def test_get_subgrid(valid_grid):
         [0, 8, 0],
     ]
 
-    actual = valid_grid.subgrid(2, 3)
+    actual = valid_grid.subgrid[2, 3]
     assert actual == expected
+
+
+def test_get_subgrid_bad_indices(valid_grid):
+
+    with pytest.raises(IndexError):
+        valid_grid.subgrid[1]
+
+    with pytest.raises(IndexError):
+        valid_grid.subgrid[1::2]
+
+    with pytest.raises(IndexError):
+        valid_grid.subgrid[1, 2, 3]
 
 
 def test_str(valid_grid):
