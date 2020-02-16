@@ -7,11 +7,15 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - run: |
+      - name: Install requirements
+        run: |
           pip install pipenv
           pipenv install --dev
-          pipenv run pytest -s tests
+      - name: Run tests
+        run: pipenv run pytest -vv -s tests
