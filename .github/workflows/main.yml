@@ -1,10 +1,10 @@
-name: CI
+name: Unit Test
 
 on: [push]
 
 jobs:
   test:
-    name: Unit Tests
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -13,9 +13,5 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Install requirements
-        run: |
-          pip install pipenv
-          pipenv install --dev
       - name: Run tests
-        run: pipenv run pytest -vv -s tests
+        run: python setup.py test

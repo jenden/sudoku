@@ -1,3 +1,5 @@
+![Build Status](https://github.com/jenden/sudoku/workflows/CI/badge.svg)
+
 # sudoku
 > Inspired by a [youtube video](https://www.youtube.com/watch?v=G_UYXzGuqvM).
 
