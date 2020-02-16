@@ -30,6 +30,9 @@ class Grid:
         except (TypeError, ValueError, IndexError):
             raise IndexError(f'Unable to set item at index `{index}`')
 
+    def subgrid_at(self, x, y):
+        return self.subgrids.at(x, y)
+
     def items(self):
         for y, row in enumerate(self._grid, start=1):
             for x, value in enumerate(row, start=1):
@@ -89,6 +92,12 @@ class Subgrid:
 
     def __repr__(self):
         return f'Subgrid({self._subgrid})'
+
+    def __str__(self):
+        rows = ['| {}  {}  {} |'.format(*row) for row in self._subgrid]
+        rows.append('+ -  -  - +')
+        rows.insert(0, rows[-1])
+        return '\n'.join(rows).replace('0', ' ')
 
     def __eq__(self, other):
         return self._subgrid == other._subgrid

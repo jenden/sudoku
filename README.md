@@ -49,3 +49,14 @@ Grids can be used with tuple indices and slices. They are 1-indexed from the top
 [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ```
 
+When solving, it's useful to check one of the nine subgrids. You can access a grid by referencing which 3 x 3 subgrid or by accessing the subgrid that contains a specific value.
+```python
+>>> grid.subgrids[3, 3]
+Subgrid([[0, 6, 0], [8, 0, 3], [0, 2, 0]])
+>>> print(grid.subgrid_at(9, 9))
++ -  -  - +
+| 5  3    |
+| 6       |
+|    9  8 |
++ -  -  - +
+```

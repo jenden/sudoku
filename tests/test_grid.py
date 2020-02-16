@@ -101,7 +101,7 @@ def test_get_subgrid_at(valid_grid):
     ])
 
     for x, y in [(7, 4), (9, 6), (7, 5)]:
-        assert valid_grid.subgrids.at(x, y) == expected
+        assert valid_grid.subgrid_at(x, y) == expected
 
 
 def test_get_subgrid_bad_indices(valid_grid):
@@ -130,8 +130,13 @@ def test_subgrid_iter():
 
 
 def test_subgrid_generator_iter(valid_grid):
-    subgrids = list(valid_grid.subgrids)
-    assert len(subgrids) == 9
+    expected_subgrids = 9
+
+    actual_subgrids = 0
+    for subgrid in valid_grid.subgrids:
+        actual_subgrids += 1
+
+    assert actual_subgrids == expected_subgrids
 
 
 def test_subgrid_repr(valid_grid):
@@ -139,6 +144,18 @@ def test_subgrid_repr(valid_grid):
 
     subgrid = valid_grid.subgrids[1, 1]
     assert repr(subgrid) == expected
+
+
+def test_subgrid_str(valid_grid):
+    expected = '+ -  -  - +\n' + \
+               '|    6    |\n' + \
+               '| 8     3 |\n' + \
+               '|    2    |\n' + \
+               '+ -  -  - +'
+
+    actual = str(valid_grid.subgrids[2, 2])
+    assert actual == expected
+
 
 def test_iterate_over_grid(valid_grid):
     expected_items = 81

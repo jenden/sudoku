@@ -11,7 +11,7 @@ Pipfile.lock
 .pytest_cache
 .coverage
 
-# build
+# build artifacts
 .eggs
 *.egg-info
 
