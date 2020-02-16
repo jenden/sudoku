@@ -9,7 +9,11 @@ Pipfile.lock
 
 # pytest
 .pytest_cache
+.coverage
 
+# build
+.eggs
+*.egg-info
 
 # IDE
 .vscode
