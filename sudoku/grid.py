@@ -49,9 +49,9 @@ class Grid:
             return True
 
     def __str__(self):
-        rows = [' {}  {}  {} | {}  {}  {} | {}  {}  {} '.format(*row)
+        rows = ['| {}  {}  {} | {}  {}  {} | {}  {}  {} |'.format(*row)
                 for row in self._grid]
-        [rows.insert(i, ' -  -  - + -  -  - + -  -  - ') for i in [6, 3]]
+        [rows.insert(i, '+ -  -  - + -  -  - + -  -  - +') for i in [9, 6, 3, 0]]
         return '\n'.join(rows).replace('0', ' ')
 
 
