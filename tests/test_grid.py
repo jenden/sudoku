@@ -18,6 +18,21 @@ def valid_grid() -> Grid:
     ])
 
 
+@pytest.fixture
+def solved_grid() -> Grid:
+    return Grid([
+        [2, 4, 9, 6, 5, 8, 3, 7, 1],
+        [1, 3, 6, 2, 7, 9, 5, 8, 4],
+        [7, 5, 8, 3, 1, 4, 2, 9, 6],
+        [4, 8, 7, 9, 3, 5, 6, 1, 2],
+        [3, 9, 2, 1, 6, 7, 4, 5, 8],
+        [5, 6, 1, 4, 8, 2, 7, 3, 9],
+        [9, 1, 3, 7, 4, 6, 8, 2, 5],
+        [6, 2, 5, 8, 9, 3, 1, 4, 7],
+        [8, 7, 4, 5, 2, 1, 9, 6, 3],
+    ])
+
+
 def test_instantiate_valid_grid(valid_grid):
     assert isinstance(valid_grid, Grid)
 
@@ -184,6 +199,38 @@ def test_iterate_over_grid(valid_grid):
     assert actual_items == expected_items
 
 
+def test_row_generator_getitem(valid_grid):
+    expected = [0, 0, 0, 0, 8, 0, 0, 7, 9]
+
+    actual = valid_grid.rows[9]
+
+    assert actual == expected
+
+
+def test_iterate_over_rows(valid_grid):
+    count = 0
+    for row in valid_grid.rows:
+        assert len(row) == 9
+        count += 1
+    assert count == 9
+
+
+def test_column_generator_getitem(valid_grid):
+    expected = [0, 0, 0, 3, 1, 6, 0, 5, 9]
+
+    actual = valid_grid.cols[9]
+
+    assert actual == expected
+
+
+def test_iterate_over_cols(valid_grid):
+    count = 0
+    for col in valid_grid.cols:
+        assert len(col) == 9
+        count += 1
+    assert count == 9
+
+
 def test_grid_str(valid_grid):
     expected = '+ -  -  - + -  -  - + -  -  - +\n' + \
                '| 5  3    |    7    |         |\n' + \
@@ -207,3 +254,11 @@ def test_grid_repr(valid_grid):
     actual = repr(valid_grid)
 
     assert actual == expected
+
+
+def test_grid_solved_true(solved_grid):
+    assert solved_grid.is_solved()
+
+
+def test_grid_solved_false(valid_grid):
+    assert not valid_grid.is_solved()
