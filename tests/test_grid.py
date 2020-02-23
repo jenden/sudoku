@@ -1,10 +1,10 @@
 import pytest
 
-from sudoku.grid import Grid, Subgrid
+from sudoku.grid import Grid, Subgrid, Column
 
 
 @pytest.fixture
-def valid_grid():
+def valid_grid() -> Grid:
     return Grid([
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
         [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -36,6 +36,23 @@ def test_get_x_slice(valid_grid):
     assert actual == expected
 
 
+def test_column_str(valid_grid):
+    expected = '[5,\n' \
+               ' 6,\n' \
+               ' 0,\n' \
+               ' 8,\n' \
+               ' 4,\n' \
+               ' 7,\n' \
+               ' 0,\n' \
+               ' 0,\n' \
+               ' 0]'
+
+    column = valid_grid[1, :]
+
+    assert isinstance(column, Column)
+    assert str(column) == expected
+
+
 def test_get_y_slice(valid_grid):
     expected = [7, 0, 0, 0, 2, 0, 0, 0, 6]
     actual = valid_grid[:, 6]
@@ -58,7 +75,6 @@ def test_get_bad_indices(valid_grid):
 
     with pytest.raises(IndexError):
         _ = valid_grid[1, 'b']
-
 
 
 def test_set_xy(valid_grid):
@@ -139,13 +155,6 @@ def test_subgrid_generator_iter(valid_grid):
     assert actual_subgrids == expected_subgrids
 
 
-def test_subgrid_repr(valid_grid):
-    expected = 'Subgrid([[5, 3, 0], [6, 0, 0], [0, 9, 8]])'
-
-    subgrid = valid_grid.subgrids[1, 1]
-    assert repr(subgrid) == expected
-
-
 def test_subgrid_str(valid_grid):
     expected = '+ -  -  - +\n' + \
                '|    6    |\n' + \
@@ -155,6 +164,13 @@ def test_subgrid_str(valid_grid):
 
     actual = str(valid_grid.subgrids[2, 2])
     assert actual == expected
+
+
+def test_subgrid_repr(valid_grid):
+    expected = 'Subgrid([[5, 3, 0], [6, 0, 0], [0, 9, 8]])'
+
+    subgrid = valid_grid.subgrids[1, 1]
+    assert repr(subgrid) == expected
 
 
 def test_iterate_over_grid(valid_grid):
@@ -168,7 +184,7 @@ def test_iterate_over_grid(valid_grid):
     assert actual_items == expected_items
 
 
-def test_str(valid_grid):
+def test_grid_str(valid_grid):
     expected = '+ -  -  - + -  -  - + -  -  - +\n' + \
                '| 5  3    |    7    |         |\n' + \
                '| 6       | 1  9  5 |         |\n' + \
@@ -183,4 +199,11 @@ def test_str(valid_grid):
                '|         |    8    |    7  9 |\n' + \
                '+ -  -  - + -  -  - + -  -  - +'
     actual = str(valid_grid)
+    assert actual == expected
+
+
+def test_grid_repr(valid_grid):
+    expected = f'Grid({valid_grid._grid})'
+    actual = repr(valid_grid)
+
     assert actual == expected

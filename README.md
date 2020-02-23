@@ -46,7 +46,15 @@ Grids can be used with tuple indices and slices. They are 1-indexed from the top
 >>> grid[9, 5]
 1
 >>> grid[1, :]  # first column
-[5, 6, 0, 8, 4, 3, 0, 0, 0]
+[5,
+ 6,
+ 0,
+ 8,
+ 4,
+ 7,
+ 0,
+ 0,
+ 0]
 >>> grid[:, 9]  # last row
 [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ```
@@ -57,8 +65,8 @@ When solving, it's useful to check one of the nine subgrids. You can access a gr
 Subgrid([[0, 6, 0], [8, 0, 3], [0, 2, 0]])
 >>> print(grid.subgrid_at(9, 9))
 + -  -  - +
-| 5  3    |
-| 6       |
-|    9  8 |
+| 2  8    |
+|       5 |
+|    7  9 |
 + -  -  - +
 ```

@@ -12,9 +12,8 @@ class Grid:
             x, y = index
 
             if y == slice(None, None, None):
-                return [row[x - 1] for row in self._grid]
+                return Column([row[x - 1] for row in self._grid])
             elif x == slice(None, None, None):
-                # y is a slice, take the whole x column
                 return self._grid[y - 1]
             elif isinstance(x, int) and isinstance(y, int):
                 return self._grid[y - 1][x - 1]
@@ -47,6 +46,9 @@ class Grid:
             return False
         else:
             return True
+
+    def __repr__(self):
+        return f'Grid({self._grid})'
 
     def __str__(self):
         rows = ['| {}  {}  {} | {}  {}  {} | {}  {}  {} |'.format(*row)
@@ -101,3 +103,13 @@ class Subgrid:
 
     def __eq__(self, other):
         return self._subgrid == other._subgrid
+
+
+class Column(list):
+
+    def __init__(self, column: List):
+        super().__init__()
+        [self.append(e) for e in column]
+
+    def __repr__(self):
+        return '[' + ',\n '.join([str(e) for e in self]) + ']'
